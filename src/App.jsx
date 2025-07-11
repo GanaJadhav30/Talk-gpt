@@ -9,7 +9,9 @@ function App() {
   return (
     <>
       <div className='bg-zinc-700 w-full min-h-screen'>
-
+        <div >
+          <h1>Talk-gpt</h1>
+        </div>
       </div>
     </>
   )
