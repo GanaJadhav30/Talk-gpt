@@ -1,10 +1,51 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+
+const API_KEYS = import.meta.env.VITE_OPENAI_API_KEYS
+
+
+
+
 function App() {
-  const [count, setCount] = useState(0)
+
+useEffect(() => {
+
+  const fetchdata = async () => {
+    try {
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${API_KEYS}`, // make sure API_KEYS is defined
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "deepseek/deepseek-chat-v3-0324:free",
+        messages: [
+          {
+            role: "user",
+            content: "What is the meaning of life?"
+          }
+        ]
+      })
+    });
+
+    const data = await response.json();
+    console.log(data);
+    
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
+  
+
+  fetchdata()
+}, []);
+
+
 
   return (
     <>
