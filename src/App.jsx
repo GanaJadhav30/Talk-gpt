@@ -11,8 +11,6 @@ const API_KEYS = import.meta.env.VITE_OPENAI_API_KEYS
 
 function App() {
 
-useEffect(() => {
-
   const fetchdata = async () => {
     try {
       const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -33,19 +31,18 @@ useEffect(() => {
     });
 
     const data = await response.json();
-    console.log(data);
+    console.log(data.choices[0].message.content);
     
     } catch (error) {
       console.error(error)
     }
   };
 
-  
-
-  fetchdata()
-}, []);
-
-
+  const handleClick =(e)=>{
+    alert("button was clicked")
+    e.preventDefault();
+    fetchdata()
+  }
 
   return (
     <>
@@ -56,9 +53,9 @@ useEffect(() => {
         <div className='m-3  flex-1 relative w-full h-screen overflow-hidden'>
 
           <div className='absolute bottom-0 inset-x-0'>
-          <form>
+          <form onSubmit={handleClick}>
             <input className='bg-white rounded p-2 m-2 w-1/2' type="text" />
-            <button className='bg-blue-600 rounded-lg p-2'>Submit</button>
+            <button  className='bg-blue-600 rounded-lg p-2'>Submit</button>
           </form>
           </div>
          
