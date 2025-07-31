@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { createElement, useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -10,13 +10,13 @@ const API_KEYS = import.meta.env.VITE_OPENAI_API_KEYS
 
 
 function App() {
-
+const [userInput, setuserInput] = useState('')
   const fetchdata = async () => {
     try {
       const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${API_KEYS}`, // make sure API_KEYS is defined
+        "Authorization": `Bearer ${API_KEYS}`, 
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -24,7 +24,7 @@ function App() {
         messages: [
           {
             role: "user",
-            content: "What is the meaning of life?"
+            content: userInput
           }
         ]
       })
@@ -39,10 +39,21 @@ function App() {
   };
 
   const handleClick =(e)=>{
-    alert("button was clicked")
+    // alert("button was clicked")
     e.preventDefault();
-    fetchdata()
+    setuserInput(document.getElementById('inputfield').value="")
+    
+    console.log(userInput)
+    if(userInput){
+      console.log("user input exit")
+      // fetchdata()
+      
+    }else{
+      console.log("user input does't exit")
+    }
   }
+
+  const myelement = createElement('p',null,userInput) 
 
   return (
     <>
@@ -51,10 +62,12 @@ function App() {
           <h1 className='font-bold text-2xl text-white p-4'>Talk-gpt</h1>
         </div>
         <div className='m-3  flex-1 relative w-full h-screen overflow-hidden'>
-
+          <div>{userInput}</div>
+          {/* {userInput?<p>{userInput}</p>:<p>Type here</p>} */}
+          {userInput.length > 0 && myelement}
           <div className='absolute bottom-0 inset-x-0'>
           <form onSubmit={handleClick}>
-            <input className='bg-white rounded p-2 m-2 w-1/2' type="text" />
+            <input id='inputfield' value={userInput} onChange={(e)=>setuserInput(e.target.value)} className='bg-white rounded p-2 m-2 w-1/2' type="text" />
             <button  className='bg-blue-600 rounded-lg p-2'>Submit</button>
           </form>
           </div>
