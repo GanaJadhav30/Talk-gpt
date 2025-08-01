@@ -36,7 +36,7 @@ const [myelement, setmyelement] = useState(userInput)
     const openaiData = data.choices[0].message.content
     if(data){
       const message = document.getElementById('message')
-      const p = document.createElement('p')
+      const p = document.createElement('h2')
       p.innerText = openaiData
       message.appendChild(p)
     }
@@ -71,7 +71,7 @@ const [myelement, setmyelement] = useState(userInput)
           <h1 className='font-bold text-2xl text-white p-4'>Talk-gpt</h1>
         </div>
         <div className='m-3  flex-1 relative w-full h-screen overflow-hidden'>
-          <div id='message'>
+          <div className='grid grid-cols-1 min-h-screen' id='message'>
 
           </div>
           <div className='absolute bottom-0 inset-x-0'>

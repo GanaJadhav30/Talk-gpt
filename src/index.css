@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+p{
+    font-size:x-large;
+    color: aliceblue;
+    width: fit-content;
+    padding: 10px 15px;
+    background-color: #27272A ;
+    border-radius: 20px;
+    
+    
+    
+}
+
+h2{
+    font-size: large;
+    color: white;
+    padding: 10px;
+}
