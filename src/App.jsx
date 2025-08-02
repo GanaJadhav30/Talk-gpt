@@ -2,7 +2,7 @@ import { createElement, useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
+import Spinner from './components/Spinner'
 
 const API_KEYS = import.meta.env.VITE_OPENAI_API_KEYS
 
@@ -11,7 +11,7 @@ const API_KEYS = import.meta.env.VITE_OPENAI_API_KEYS
 
 function App() {
 const [userInput, setuserInput] = useState('')
-const [myelement, setmyelement] = useState(userInput)
+const [userChatData, setuserChatData] = useState(false)
   const fetchdata = async () => {
     try {
       const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -39,6 +39,7 @@ const [myelement, setmyelement] = useState(userInput)
       const p = document.createElement('h2')
       p.innerText = openaiData
       message.appendChild(p)
+      setuserChatData(false)
     }
 
     } catch (error) {
@@ -47,7 +48,6 @@ const [myelement, setmyelement] = useState(userInput)
   };
 
   const handleClick =(e)=>{
-    // alert("button was clicked")
     e.preventDefault();
     setuserInput(document.getElementById('inputfield').value="")
     console.log(userInput)
@@ -57,12 +57,13 @@ const [myelement, setmyelement] = useState(userInput)
         const p = document.createElement('p')
         p.innerText=userInput
         const message = document.getElementById('message')
-        message.appendChild(p)      
+        message.appendChild(p)
+        setuserChatData(true)
+           
     }else{
       console.log("user input does't exit")
     }
   }
-
 
   return (
     <>
@@ -71,8 +72,9 @@ const [myelement, setmyelement] = useState(userInput)
           <h1 className='font-bold text-2xl text-white p-4'>Talk-gpt</h1>
         </div>
         <div className='m-3  flex-1 relative w-full h-screen overflow-hidden'>
-          <div className='grid grid-cols-1 min-h-screen' id='message'>
-
+          <div className='min-h-screen' id='message'>
+           {userChatData? <h2> <Spinner /> </h2> : console.log("spinner")}
+           
           </div>
           <div className='absolute bottom-0 inset-x-0'>
           <form onSubmit={handleClick}>
