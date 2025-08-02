@@ -73,7 +73,7 @@ const [userChatData, setuserChatData] = useState(false)
         </div>
         <div className='m-3  flex-1 relative w-full h-screen overflow-hidden'>
           <div className='min-h-screen' id='message'>
-           {userChatData? <h2> <Spinner /> </h2> : console.log("spinner")}
+           {userChatData && <h2> <Spinner /> </h2> }
            
           </div>
           <div className='absolute bottom-0 inset-x-0'>
